@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 public class SayaTubeVideo
 {
@@ -8,6 +9,8 @@ public class SayaTubeVideo
 
     public SayaTubeVideo(string title)
     {
+        Debug.Assert(title != null && title.Length <= 100, "Judul tidak boleh null dan maksimal 100 karakter!");
+
         Random rand = new Random();
         this.id = rand.Next(10000, 99999);
         this.title = title;
@@ -16,7 +19,11 @@ public class SayaTubeVideo
 
     public void IncreasePlayCount(int count)
     {
-        playCount += count;
+        Debug.Assert(count > 0 && count <= 10000000, "Input play count maksimal 10 juta per panggilan!");
+        checked
+        {
+            playCount += count;
+        }
     }
 
     public void PrintVideoDetails()
@@ -26,6 +33,7 @@ public class SayaTubeVideo
         Console.WriteLine($"Play Count: {playCount}");
     }
 }
+
 
 class Program
 {
